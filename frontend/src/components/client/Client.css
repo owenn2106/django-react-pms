@@ -1,0 +1,7 @@
+.clients-btn-wrapper {
+  display: flex;
+}
+
+.clients-btn-wrapper > * {
+  margin-right: 1em;
+}

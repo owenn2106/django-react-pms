@@ -1,0 +1,30 @@
+.project-header-btn > * {
+  flex-basis: 100%;
+}
+
+select {
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.custom-select {
+  color: white;
+  background: transparent;
+  border: 1px solid white;
+  padding: 0 1em;
+
+  transition: all 300ms ease;
+}
+
+.custom-select:focus,
+.custom-select:hover,
+.custom-select:active {
+  background: white;
+  color: black;
+}
+
+.project-add-btn {
+  white-space: nowrap;
+  margin-left: 1em;
+}

@@ -1,0 +1,28 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-card {
+  background-color: rgb(20, 26, 31);
+  width: 500px;
+  padding: 2em 5em;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+
+  padding: 0.25em 0.75em;
+}
