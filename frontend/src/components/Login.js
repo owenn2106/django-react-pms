@@ -67,9 +67,7 @@ const Login = () => {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      {isLogin ? (
-        ""
-      ) : (
+      {isLogin ? null : (
         <div className="text-white">
           <br />
           <label htmlFor="fname">First Name</label>
