@@ -94,7 +94,12 @@ function FormProject(props) {
           <label htmlFor="status" className="form-label">
             Project Status
           </label>
-          <select className="form-select" name="status" id="status">
+          <select
+            onChange={(e) => setProjectStatus(e.target.value)}
+            className="form-select"
+            name="status"
+            id="status"
+          >
             <option value="Pending">Pending</option>
             <option value="In Progress">In Progress</option>
             <option value="Done">Done</option>
