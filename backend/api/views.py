@@ -11,6 +11,8 @@ from .models import *
 
 # Create your views here.
 # Viewsets provides implementation for CRUD operations by default.
+
+
 class ClientView(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
     # queryset = Client.objects.all()
@@ -22,6 +24,10 @@ class ClientView(viewsets.ModelViewSet):
         queryset = Client.objects.filter(user=user)
 
         return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class ProjectView(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
@@ -35,8 +41,9 @@ class ProjectView(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         queryset = Project.objects.filter(user=user)
-        
+
         return queryset
+
 
 class TodolistView(viewsets.ModelViewSet):
     serializer_class = TodolistSerializer
@@ -50,12 +57,14 @@ class TodolistView(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         queryset = Todolist.objects.filter(user=user)
-        
+
         return queryset
+
 
 class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
 
 class CustomAuthToken(ObtainAuthToken):
 

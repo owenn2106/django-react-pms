@@ -1,17 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
 
 class Client(models.Model):
     name = models.CharField(max_length=128, null=True)
     phone = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(max_length=50, null=True)
-    date_created = models.DateField(auto_now_add=True) #auto_now is for future dates (e.g. modify date)
-    
-    user = models.CharField(max_length=128, null=True, blank=True)
+    # auto_now is for future dates (e.g. modify date)
+    date_created = models.DateField(auto_now_add=True)
+
+    user = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
 
 class Project(models.Model):
     STATUS = (
@@ -26,11 +31,14 @@ class Project(models.Model):
     description = models.TextField(max_length=128, null=True, blank=True)
     status = models.CharField(max_length=20, null=True, choices=STATUS)
 
-    client = models.ForeignKey(Client, null=True, blank=True, on_delete=models.SET_NULL)
-    user = models.CharField(max_length=128, null=True, blank=True)
+    client = models.ForeignKey(
+        Client, null=True, blank=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.name) + " - " + str(self.client)
+
 
 class Todolist(models.Model):
     STATUS = (
