@@ -7,6 +7,10 @@ from rest_framework.authtoken.views import Token
 
 
 class ClientSerializer(serializers.ModelSerializer):
+    # Alternative to the 'perform_create' function in views.py, to automatically fills
+    # in the user field with the current/logged in user, use the code below.
+    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Client  # Specify the model you want to serialize
         fields = '__all__'  # Specify the fields you want to serialize
