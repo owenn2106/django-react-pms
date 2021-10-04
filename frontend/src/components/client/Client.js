@@ -72,7 +72,7 @@ const Client = () => {
   };
 
   const deleteClientBtn = (client) => {
-    APIService.DeleteClient(client.id)
+    APIService.DeleteClient(client.id, token["loginToken"])
       .then(() => {
         const new_client = clients.filter((myclient) => {
           if (myclient.id === client.id) {

@@ -10,6 +10,9 @@ function FormProject(props) {
   const [ProjectDeadline, setProjectDeadline] = useState("");
   const [ProjectDescription, setProjectDescription] = useState("");
   const [ProjectStatus, setProjectStatus] = useState("");
+  const [ProjectClient, setProjectClient] = useState("");
+
+  const [clients, setClients] = useState([]);
 
   const [token, setToken] = useCookies(["loginToken"]);
 
@@ -18,7 +21,22 @@ function FormProject(props) {
     setProjectDeadline(props.ProjectInstance.deadline);
     setProjectDescription(props.ProjectInstance.description);
     setProjectStatus(props.ProjectInstance.status);
+    setProjectClient(props.ProjectInstance.client);
   }, [props.ProjectInstance]);
+
+  // FETCH THE CLIENTS HERE TO BE RENDERED FOR THE DROPDOWN MENU IN THE FORM
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/client", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token["loginToken"]}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => setClients(response))
+      .catch((error) => console.log(error));
+  }, [token]);
 
   const updateProject = () => {
     APIService.UpdateProject(
@@ -28,6 +46,7 @@ function FormProject(props) {
         deadline: ProjectDeadline,
         description: ProjectDescription,
         status: ProjectStatus,
+        client: ProjectClient,
       },
       token["loginToken"]
     ).then((response) => props.updatedProjects(response));
@@ -40,6 +59,7 @@ function FormProject(props) {
         deadline: ProjectDeadline,
         description: ProjectDescription,
         status: ProjectStatus,
+        client: ProjectClient,
       },
       token["loginToken"]
     ).then((response) => props.createdProject(response));
@@ -100,9 +120,27 @@ function FormProject(props) {
             name="status"
             id="status"
           >
+            <option value="none" selected disabled hidden>
+              Select a Status...
+            </option>
             <option value="Pending">Pending</option>
             <option value="In Progress">In Progress</option>
             <option value="Done">Done</option>
+          </select>
+          <br />
+
+          <select
+            onChange={(e) => setProjectClient(e.target.value)}
+            className="form-select"
+            name="client"
+            id="client"
+          >
+            <option value="none" selected disabled hidden>
+              Select a Client...
+            </option>
+            {clients.map((client) => {
+              return <option value={client.name}>{client.name}</option>;
+            })}
           </select>
           <br />
 
